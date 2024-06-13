@@ -29,25 +29,12 @@ export class CelularesService {
       );
     }
 
-    const idColores = celularDTO.colores;
-    const colores: Color[] = [];
-    for (let i = 0; i < idColores.length; i++) {
-      colores.push(
-        await this.colorRepository.findOneBy({
-          id: idColores[i],
-        }),
-      );
-    }
-
-    const idCategorias = celularDTO.categorias;
-    const categorias: Categoria[] = [];
-    for (let i = 0; i < idCategorias.length; i++) {
-      categorias.push(
-        await this.categoriaRepository.findOneBy({
-          id: idCategorias[i],
-        }),
-      );
-    }
+    const color = await this.colorRepository.findOneBy({
+      id: celularDTO.color,
+    });
+    const categoria = await this.categoriaRepository.findOneBy({
+      id: celularDTO.categoria,
+    });
 
     return await this.celularRepository.save({
       nombre: celularDTO.nombre,
@@ -55,8 +42,8 @@ export class CelularesService {
       marca: celularDTO.marca,
       modelo: celularDTO.modelo,
       precio: celularDTO.precio,
-      colores: colores,
-      categorias: categorias,
+      color: color,
+      categoria: categoria,
     });
   }
 
@@ -68,10 +55,23 @@ export class CelularesService {
       id: idCelu,
     });
   }
+
   async actualizar(id: number, updateCelularDTO: UpdateCelularDTO) {
+    const color = await this.colorRepository.findOneBy({
+      id: updateCelularDTO.color,
+    });
+    const categoria = await this.categoriaRepository.findOneBy({
+      id: updateCelularDTO.categoria,
+    });
+
     return await this.celularRepository.update(id, {
       nombre: updateCelularDTO.nombre,
       descripcion: updateCelularDTO.descripcion,
+      marca: updateCelularDTO.marca,
+      modelo: updateCelularDTO.modelo,
+      precio: updateCelularDTO.precio,
+      color: color,
+      categoria: categoria,
     });
   }
   async eliminar(id: number) {

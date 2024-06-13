@@ -4,8 +4,7 @@ import {
   Column,
   CreateDateColumn,
   Entity,
-  JoinTable,
-  ManyToMany,
+  ManyToOne,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
@@ -36,31 +35,12 @@ export class Celular {
   @UpdateDateColumn({ name: 'fecha_modificacion' })
   fechaModificacion: Date;
 
-  @ManyToMany(() => Color, (color) => color.celulares)
-  @JoinTable({
-    name: 'celulares_colores',
-    joinColumn: {
-      name: 'celular_id',
-      referencedColumnName: 'id',
-    },
-    inverseJoinColumn: {
-      name: 'color_id',
-      referencedColumnName: 'id',
-    },
-  })
-  colores: Color[];
+  @Column('int', { nullable: false })
+  stock: number;
 
-  @ManyToMany(() => Categoria, (categoria) => categoria.celulares)
-  @JoinTable({
-    name: 'celulares_categorias',
-    joinColumn: {
-      name: 'celular_id',
-      referencedColumnName: 'id',
-    },
-    inverseJoinColumn: {
-      name: 'categoria_id',
-      referencedColumnName: 'id',
-    },
-  })
-  categorias: Categoria[];
+  @ManyToOne(() => Color, (color) => color.celulares)
+  color: Color;
+
+  @ManyToOne(() => Categoria, (categoria) => categoria.celulares)
+  categoria: Categoria;
 }

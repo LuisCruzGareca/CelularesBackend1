@@ -9,8 +9,8 @@ export class UpdateUsuariosDTO {
   readonly email: string;
 
   @IsString({ message: 'El campo password debe ser de tipo cadena' })
-  @MinLength(10, {
-    message: 'El campo password no debe ser menor a 5 caracteres',
+  @MinLength(2, {
+    message: 'El campo password no debe ser menor a 2 caracteres',
   })
   readonly password: string;
 }

@@ -33,9 +33,13 @@ export class CreateCelularDTO {
   @IsNumber({}, { message: 'El precio ha de ser un numero' })
   @IsPositive()
   readonly precio: number;
-  @IsArray()
-  readonly categorias: number[];
   @IsNotEmpty()
-  @IsArray()
-  readonly colores: number[];
+  @IsNumber()
+  readonly stock: number;
+  @IsNotEmpty()
+  @IsNumber()
+  readonly categoria: number;
+  @IsNotEmpty()
+  @IsNumber()
+  readonly color: number;
 }
